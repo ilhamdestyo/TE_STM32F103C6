@@ -24,7 +24,8 @@
             "compilerArgs": [
                 "-mcpu=cortex-m3",
                 "-mthumb"
-            ]
+            ],
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

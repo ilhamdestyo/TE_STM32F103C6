@@ -21,6 +21,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#define ADC_BASE_ADDR       0x40012400UL 
+#define ADC_CR1_REG_OFFSET  0x04UL
+#define ADC_CR1_REG_ADDR    (ADC_BASE_ADDR + ADC_CR1_REG_OFFSET)
+#define RCC_BASE_ADDR       0x40002800UL
+#define RCC_APB2_ENR_OFFSET 0x18UL
+#define RCC_APB2_ENR_ADRR   (RCC_BASE_ADDR + RCC_APB2_ENR_OFFSET)
 
 /* USER CODE END Includes */
 
@@ -55,7 +61,11 @@ static void MX_USART1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void USARTSend(char *pucBuffer, unsigned long ulCount){
+  while(ulCount--){
 
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -88,6 +98,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_Init();
   /* USER CODE BEGIN 2 */
+  uint32_t *pAdcCr1Reg = (uint32_t*) ADC_CR1_REG_ADDR;
+  uint32_t *pRccApb2Enr = (uint32_t*) RCC_APB2_ENR_ADRR;
 
   /* USER CODE END 2 */
 
@@ -98,6 +110,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+
+  //1. enable peripheral clock untuk ADC1
+  *pRccApb2Enr |= (1 << 8);
+  //2. modifikasi ADC CR1 register
+  *pAdcCr1Reg |= (1 << 8);
     HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
     HAL_Delay(2000);
     // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
